@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧩 SaaSakiTech Next.js Assignment
 
-## Getting Started
+This project is a Next.js web application built as part of a frontend assignment for **SaaSakiTech.com**. It implements user authentication using **Clerk.js**, persistent data handling with **localStorage**, and UI components styled using **DaisyUI** and **Tailwind CSS**.
 
-First, run the development server:
+---
+
+## 🔧 Tech Stack
+
+- **Framework**: [Next.js](https://nextjs.org/)
+- **Authentication**: [Clerk.js](https://clerk.dev/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [DaisyUI](https://daisyui.com/)
+- **State Persistence**: `localStorage`
+- **Language**: JavaScript / TypeScript (depending on your setup)
+
+---
+
+## ✨ Features
+
+- 🔐 **Clerk.js Authentication**  
+  Seamless sign-in and sign-up flow using Clerk.
+
+- 🧠 **Persistent Data with localStorage**  
+  User data/state is stored locally so that it remains intact across page reloads.
+
+- 🎨 **DaisyUI + Tailwind Styling**  
+  Responsive and clean UI using utility-first styling.
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
 
 ```bash
+git clone https://github.com/HalfNoob01/next-ecommerce-task.git
+cd next-ecommerce-task
+
+
+npm install
+# or
+yarn install
+
+
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_publishable_key
+CLERK_SECRET_KEY=your_secret_key
+
+
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open http://localhost:3000 in your browser.
