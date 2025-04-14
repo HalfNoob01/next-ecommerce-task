@@ -3,6 +3,7 @@
 import { HeartIcon, Star, StarHalf } from "lucide-react";
 import { toast } from 'react-toastify';
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface ProductProps {
   product: any;
@@ -11,6 +12,8 @@ interface ProductProps {
 }
 
 export default function SignleProductPageContainer({ product, related, userId }: ProductProps) {
+  const [wishlist, setWishlist] = useState<number[]>([])
+
   const handleAddToCart = (item: any) => {
     try {
       const newItem = {
@@ -47,7 +50,52 @@ export default function SignleProductPageContainer({ product, related, userId }:
     }
   };
 
+  const toggleWishlist = (item: any) => {
 
+    const storedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+
+
+    const isInWishlist = storedWishlist.some(
+      (w: any) => w.id === item.id && w.userId === userId
+    );
+
+    let updatedWishlist;
+
+    if (isInWishlist) {
+
+      updatedWishlist = storedWishlist.filter(
+        (w: any) => !(w.id === item.id && w.userId === userId)
+      );
+      toast.success("Removed from wishlist!");
+    } else {
+
+      updatedWishlist = [
+        ...storedWishlist,
+        {
+          id: item.id,
+          userId: userId,
+          ...item,
+        },
+      ];
+      toast.success("Added to wishlist.");
+    }
+
+
+    localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+
+
+    const filtered = updatedWishlist.filter((w: any) => w.userId === userId);
+    setWishlist(filtered);
+  };
+
+    useEffect(() => {
+      const stored = localStorage.getItem("wishlist");
+      if (stored) {
+        const allWishlist = JSON.parse(stored);
+        const userWishlist = allWishlist.filter((item: any) => item.userId === userId);
+        setWishlist(userWishlist);
+      }
+    }, [userId]);
   return (
     <div className="min-h-screen bg-base-200 px-4 py-10 flex flex-col items-center gap-10">
       {/* Main Product */}
@@ -63,8 +111,8 @@ export default function SignleProductPageContainer({ product, related, userId }:
         <div className="card-body w-full lg:w-1/2">
           <div className="flex justify-between items-start">
             <h2 className="card-title text-2xl">{product.title}</h2>
-            <button className="text-error hover:scale-110 transition-all">
-              <HeartIcon className="w-6 h-6" />
+            <button  onClick={() => toggleWishlist(product)} className="text-error hover:scale-110 transition-all">
+              <HeartIcon fill={wishlist.some((w: any) => w.id === product.id && w.userId === userId) ? "red" : "none"} className="w-6 h-6" />
             </button>
           </div>
 
@@ -187,8 +235,8 @@ export default function SignleProductPageContainer({ product, related, userId }:
                   >
                     Add to Cart
                   </button>
-                  <button className="text-red-500 hover:scale-110 transition-transform">
-                    <HeartIcon className="w-5 h-5" />
+                  <button  onClick={() => toggleWishlist(item)} className="text-red-500 hover:scale-110 transition-transform">
+                    <HeartIcon fill={wishlist.some((w: any) => w.id === item.id && w.userId === userId) ? "red" : "none"} className="w-5 h-5" />
                   </button>
                 </div>
               </div>
